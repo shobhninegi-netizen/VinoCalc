@@ -1,0 +1,539 @@
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>VinumCalculator</title>
+                    <style>
+                        body::before{
+                    content:'';
+                    position:absolute;
+                    width:300px;
+                    height:300px;
+                    background:rgba(255,0,80,0.15);
+                    border-radius:50%;
+                    filter:blur(100px);
+                    animation: float 6s ease-in-out infinite;
+                }
+
+                @keyframes float{
+                    0%{transform:translateY(0);}
+                    50%{transform:translateY(-20px);}
+                    100%{transform:translateY(0);}
+                }
+                        body {
+                            background:linear-gradient(135deg, #FFF8E1 0%, #FFE4B5 100%); 
+                            background: 
+                    radial-gradient(at 30% 20%, #4A1E2E 0px, transparent 50%),
+                    radial-gradient(at 70% 80%, #2B0F1F 0px, transparent 50%),
+                    #0F0508;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100vh;
+                            margin:0;
+                            font-family: Arial;
+                            backdrop-filter: blur(10px);
+                        }
+                    
+                .calculator {
+                    padding: 20px;
+                    border-radius: 30px;
+                    width: 350px;
+
+                    background: rgba(20, 10, 15, 0.75);
+                    backdrop-filter: blur(25px);
+
+                    box-shadow:
+                        0 20px 60px rgba(0,0,0,0.6),
+                        inset 0 1px 0 rgba(255,255,255,0.1);
+
+                    border: 1px solid rgba(255,255,255,0.08);
+                }
+                /* VinoCalc Logo Top Pe */
+                .logo {
+                    position: absolute;
+                    top:8px;
+                    left: 20px;
+                    right:20px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: baseline;
+
+                }
+
+                    .brand {
+                color: #E8D4B0; /* Gold */
+                font-size: 16px; /* VinoCalc ka size */
+                font-family: 'Georgia', serif;
+                font-style: italic;
+                font-weight: bold;
+                }
+
+                .model {
+                color: #E8D4B0; /* Gold */
+                font-size: 11px; /* SC-820W ka size - bada karna hai to 13px kar de */
+                font-family: Arial, sans-serif;
+                letter-spacing: 1px;
+                }
+
+
+                        .display {
+                background: #C8D5B9; /* LCD green - photo jaisa */
+                color: #2D2D2D; /* Dark text */
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 15px;
+                border-radius: 10px;
+                margin-bottom: 20px;
+                margin-top: 25px; /* Logo ke liye space */
+                height: 110px;
+                box-shadow: inset 0 2px 5px rgba(0,0,0,0.2); /* LCD dabba effect */
+                }
+
+                #question {
+                color: #2D2D2D;
+                font-size: 16px;
+                text-align: right;
+                min-height: 25px;
+                font-family: 'Courier New', monospace; /* Calculator font */
+                }
+
+
+                #answer {
+                    color: #2D2D2D;
+                    font-weight: bold;
+                    text-align: right;
+                    font-family: 'Courier New', monospace;
+
+                    font-size: clamp(18px, 5vw, 32px); /* 👈 auto responsive size */
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+                        
+                        .expression {
+                            font-size: 18px;
+                            opacity:0.7;
+                            min-height: 22px;
+
+                        }
+                        .number {
+                            background: #5a1a1a; /*wine color for numbers*/
+                            color:#F5DEB3; /*Wine text*/
+                        }
+                        .sci-buttons {
+                            
+                            display: grid;
+                        grid-template-columns: repeat(5,1fr) ;
+                        gap: 10px;
+                        margin-bottom: 12px;
+                        }
+                    
+
+                        .buttons {
+                                display: grid;
+                                grid-template-columns: repeat(5,1fr);
+                                gap: 10px;
+                        }
+                        .zero {
+                            grid-column: span 2;
+                            width: 100%;
+                            border-radius: 30px;
+                        }
+                        .btn{ 
+                            width: 60px;
+                            height: 60px;
+                            border-radius: 50%;
+                            border: none;
+                            font-size: 22px;
+                            font-weight: bold;
+                            cursor: pointer;
+                        }
+                        .sci{
+                    width: auto;
+                    height: 45px;
+                    border-radius: 25px;
+
+                    background: rgba(245,230,200,0.12);
+                    color: #F5E6C8;
+
+                    border: 1px solid rgba(245,230,200,0.2);
+
+                    font-size: 16px;
+                    backdrop-filter: blur(10px);
+                }
+
+                .sci:hover{
+                    background: rgba(245,230,200,0.2);
+                    transform: translateY(-2px);
+                }
+                        .operator {
+                            background: #ffeec3; /*sand gold - for operators*/
+                            color:#2a0a0a;/*wine text*/
+                        }
+                        .equal {
+                            background: #D2042D;
+                            color: beige;
+                        }
+                        .btn:active{
+                            transform: scale(0.95);
+                        }
+                        .zero {
+                grid-column: 2 / 4!important; /* Column 2 se 4 tak */
+                width: 100%;
+                border-radius: 30px;
+                }
+                .btn:hover{
+                    box-shadow: 0 0 15px rgba(255, 230, 180, 0.5);
+                    transform: translateY(-2px);
+                }
+
+                        .wine {
+                            grid-column: 1;
+                    background: #F5E6C8;
+                    color: #3B1C1C;
+                    font-size: 24px;}
+                    body.light-mode{
+                    background:
+                    radial-gradient(at 30% 20%, #f8d7a8 0px, transparent 50%),
+                    radial-gradient(at 70% 80%, #e7c38f 0px, transparent 50%),
+                    #fff8e7;
+                }
+
+                body.light-mode .calculator{
+                    background: rgba(255,255,255,0.35);
+                    border: 1px solid rgba(120,80,40,0.2);
+                    box-shadow: 0 0 30px rgba(120,80,40,0.2);
+                }
+
+                body.light-mode .display{
+                    background: #f5f1d8;
+                    color: #3b1c1c;
+                }
+
+                body.light-mode .number{
+                    background: #d8b07c;
+                    color: #3b1c1c;
+                }
+
+                body.light-mode .operator{
+                    background: #f7e7c6;
+                    color: #3b1c1c;
+                }
+
+                body.light-mode .sci{
+                    background: rgba(120,80,40,0.1);
+                    color: #3b1c1c;
+                }
+
+                body.light-mode .brand,
+                body.light-mode .model{
+                    color: #5a2e1b;
+                }
+                .top-actions{
+                    display:flex;
+                    align-items:center;
+                    gap:10px;
+                }
+
+                .theme-btn{
+                    width:28px;
+                    height:28px;
+                    border-radius:50%;
+                    border:1px solid rgba(245,230,200,0.3);
+                    background: rgba(245,230,200,0.1);
+                    color:#F5E6C8;
+                    cursor:pointer;
+                    font-size:14px;
+                    backdrop-filter: blur(10px);
+                    transition:0.2s;
+                }
+                .theme-btn{
+                    border: none;
+                    background: transparent;
+                    font-size: 16px;
+                    cursor: pointer;
+                    color: #F5E6C8;
+                }
+
+                .theme-btn:hover{
+                    transform: scale(1.1);
+                    background: rgba(245,230,200,0.2);
+                }
+                @media (max-width: 500px) {
+                    .calculator {
+                        width: 95vw;
+                        padding: 15px;
+                        border-radius: 20px;
+                    }
+
+                    .btn {
+                        width: 50px;
+                        height: 50px;
+                        font-size: 18px;
+                    }
+
+                    .sci {
+                        height: 38px;
+                        font-size: 13px;
+                    }
+
+                    #answer {
+                        font-size: clamp(16px, 6vw, 28px);
+                    }
+
+                    .display {
+                        height: 90px;
+                    }
+                }
+                    
+                    </style>
+                </head>
+                <body>
+                    <div class="calculator">
+                    <!-- Logo Section Naya -->
+                
+                <div class="logo">
+                <span class="brand">VinoCalc 🍇</span>
+
+                <div class="top-actions">
+                    <span class="model">SC-820W</span>
+                    <button class="theme-btn" onclick="toggleTheme()">🌗</button>
+                </div>
+                </div>
+                    <!-- Display Section-->
+                    <div  class="display" id="display">
+
+                    
+                    <div id="question"></div>
+                    <div id="answer">0</div>
+                    
+                    </div><!--Display Section Closed-->
+                    
+                    <!--Scientific Button Row-->
+                    <div class="sci-buttons">
+                        <button class="btn sci" onclick="calculateSine()">sin</button>
+                        <button class="btn sci" onclick="calculateCos()">cos</button>
+                        <button class="btn sci" onclick="calculatetan()">tan</button>
+                        <button class="btn sci" onclick="setOperator('^')">xʸ</button>
+                        <button class="btn sci" onclick="calculatelog()">log</button>
+
+                        
+                        <button class="btn sci" onclick="calculateln()">ln</button>
+                        <button class="btn sci" onclick="calculateSqrt()">√</button>
+                        <button class="btn sci" onclick="insertPi()">'π'</button>
+                        <button class="btn sci onoff" onclick="togglePower()">ON</button> <!-- NAYA 1 -->
+                        <button class="btn sci" onclick="factorial()">x!</button> <!-- NAYA 2 -->
+
+                    
+                    </div>
+                        <div class="buttons">
+                <!-- Row 1 -->
+                <button class="btn number" onclick=" playClick();append ('7')">7</button> 
+                <button class="btn number" onclick="playClick();append('8')">8</button> 
+                <button class="btn number" onclick="playClick();append('9')">9</button> 
+                <button class="btn operator" onclick="playClick();backspace()">DEL</button> 
+                <button class="btn operator" onclick="playClick();ClearDisplay()">AC</button>
+
+                <!-- Row 2 -->
+                <button class="btn number" onclick="playClick();append('4')">4</button> 
+                <button class="btn number" onclick="playClick();append('5')">5</button> 
+                <button class="btn number" onclick="playClick();append('6')">6</button>
+                <button class="btn operator" onclick="playClick();setOperator('*')">×</button> 
+                <button class="btn operator" onclick="playClick();setOperator('/')">÷</button> 
+
+                <!-- Row 3 -->
+                <button class="btn number" onclick="playClick();append('1')">1</button>
+                <button class="btn number" onclick="playClick();append('2')">2</button> 
+                <button class="btn number" onclick="playClick();append('3')">3</button>
+                <button class="btn operator" onclick="playClick();setOperator('+')">+</button> 
+                <button class="btn operator" onclick="playClick();setOperator('-')">-</button> 
+
+                <!-- Row 4 -->
+                <button class="btn wine" onclick="playClick();cheers()">🍷</button>
+                <button class="btn number zero" onclick="playClick();append('0')">0</button> <!-- zero small z dhyaan se -->
+                <button class="btn number" onclick="playClick();append('.')">.</button> 
+                
+                <button class="btn equal" onclick="playClick();calculate()">=</button>
+                </div>
+                        </div>          
+                    </div>
+                    <script>
+                        
+                    let firstNumber = null;
+                    let operator = null;
+                    let shouldResetDisplay = false;
+                    let question = document.getElementById('question');
+                let answer = document.getElementById('answer');
+                let currentInput = "0";
+                let isOn = true;
+                let clickSound = new Audio("https://www.fesliyanstudios.com/play-mp3/387");
+
+                    function append(num){
+                    if(!isOn) return;
+
+                    if(shouldResetDisplay){
+                        currentInput = '';
+                        shouldResetDisplay = false;
+                    }
+
+                    if(currentInput === "0"){
+                        currentInput = num;
+                    } else {
+                        currentInput += num;
+                    }
+
+                    answer.textContent = currentInput;
+                }
+                function cheers(){
+                    answer.textContent = "🍷 Cheers!";
+                    answer.style.transform = "scale(1.2)";
+                    
+                    setTimeout(() => {
+                        answer.style.transform = "scale(1)";
+                        answer.textContent = "0";
+                    }, 1200);
+                }
+                    function setOperator(op) {
+                        firstNumber = answer.textContent; //screen pe jo hai use yaad kar lo
+                        operator = op; //+,-,/ jo dabaya yaad karlo
+                        shouldResetDisplay = true;//agla number type hote hi screen clear kardena
+                    }
+                    function calculate() {
+                        let secondNumber = answer.textContent;// = dabate time screen pe jo hai
+                        let result;
+                        if(operator ==='+')
+                        result = parseFloat(firstNumber)+parseFloat(secondNumber);
+                        if(operator ==='-')
+                        result = parseFloat(firstNumber)-parseFloat(secondNumber);
+                        if(operator ==='*')
+                        result = parseFloat(firstNumber)*parseFloat(secondNumber);
+                        if(operator ==='/')
+                        result = parseFloat(firstNumber)/parseFloat(secondNumber);
+                        if(operator ==='^')
+                        result = Math.pow  (parseFloat(firstNumber),parseFloat(secondNumber));
+                        
+                        answer.textContent = result; //answer screen pe dikhado
+                        currentInput = result.toString();
+                        operator = null; //reset kardo
+                        firstNumber = null;
+                }
+                function playClick(){
+                    clickSound.currentTime = 0;
+                    clickSound.play();
+                }
+
+                        function calculateSine() {
+                            if(!isOn) return;
+                            answer.textContent = Math.sin(display.textContent * Math.PI /180);//degrees ko radian mein badla cuz js mein radian kaam karta hai
+                            shouldResetDisplay = true;
+
+
+                        }
+                        function insertPi() {
+                            if(!isOn) return;
+                    currentInput = Math.PI.toString();
+                    answer.textContent = currentInput;
+                    shouldResetDisplay = true;
+                }
+                            
+                            function backspace(){
+                    currentInput = answer.textContent.slice(0, -1);
+
+                    if(currentInput === "" || currentInput === "-"){
+                        currentInput = "0";
+                    }
+
+                    answer.textContent = currentInput;
+                }
+                function ClearDisplay(){
+                    currentInput = "0";
+                    firstNumber = null;
+                    operator = null;
+                    answer.textContent = "0";
+                    question.textContent = "";
+                }
+                function calculatetan(){
+                    if(!isOn) return;
+                    answer.textContent = Math.tan(answer.textContent * Math.PI / 180);
+                    shouldResetDisplay = true;
+                }
+                function calculateCos(){
+                    if(!isOn) return;
+                    answer.textContent = Math.cos(answer.textContent * Math.PI / 180);
+                    shouldResetDisplay = true;
+                }
+
+                function calculateSqrt(){
+                    if(!isOn) return;
+                    answer.textContent = Math.sqrt(answer.textContent);
+                    shouldResetDisplay = true;
+                }
+                function calculatelog(){
+                    if(!isOn) return;
+                    let value = parseFloat(answer.textContent);
+
+                    if(value <= 0){
+                        answer.textContent = "Error";
+                        return;
+                    }
+
+                    answer.textContent = Math.log10(value);
+                    shouldResetDisplay = true;
+                }
+                function calculateln(){
+                    if(!isOn) return;
+                    let value = parseFloat(answer.textContent);
+
+                    if(value <= 0){
+                        answer.textContent = "Error";
+                        return;
+                    }
+
+                    answer.textContent = Math.log(value);
+                    shouldResetDisplay = true;
+                }
+                function factorial(){
+                    if(!isOn) return;
+                    let value = parseInt(answer.textContent);
+
+                    if(value < 0){
+                        answer.textContent = "Error";
+                        return;
+                    }
+
+                    let result = 1;
+                    for(let i = 1; i <= value; i++){
+                        result *= i;
+                    }
+
+                    answer.textContent = result;
+                    shouldResetDisplay = true;
+                }
+                function togglePower(){
+                    isOn = !isOn;
+
+                    if(!isOn){
+                        answer.textContent = "";
+                        question.textContent = "";
+                        currentInput = "";
+                    } else {
+                        currentInput = "0";
+                        answer.textContent = "0";
+                    }
+                }
+                function toggleTheme(){
+                    document.body.classList.toggle("light-mode");
+                }
+                function playClick(){
+                    clickSound.currentTime = 0;
+                    clickSound.play();
+                }
+
+                        </script>
+                    
+
+                    
+                </body>
+                </html>
